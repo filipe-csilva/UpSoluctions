@@ -1,6 +1,6 @@
 ﻿namespace UpSoluctions.Models
 {
-    public class SupplierMd : PersonMd
+    public class ClientCompanyMd : CompanyMd
     {
     }
 }
