@@ -1,0 +1,9 @@
+﻿namespace UpSoluctions.Models
+{
+    public class ProhibitedMd
+    {
+        public int Id { get; set; }
+        public DateTime DtProhibited { get; set; }
+        públic BookMd BookId { get; set }
+    }
+}
