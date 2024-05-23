@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public DateTime DtProhibited { get; set; }
-        públic BookMd BookId { get; set }
+        public BookMd BookId { get; set; }
+        public float OrderPrice { get; set; }
     }
 }
