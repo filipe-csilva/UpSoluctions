@@ -70,7 +70,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 ## ✒️ Autor(as/es)
 
-- **Filipe Paulo** - _Desenvolvedor_ - [bessax](https://github.com/filipe-csilva)
+- **Filipe Paulo** - _Desenvolvedor_ - [filipe-csilva](https://github.com/filipe-csilva)
 
 <!-- Colaboradores -->
 
