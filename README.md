@@ -1,9 +1,9 @@
-<!--- <h1 align="center"> Grupo de estudos - Discord de alunos </h1>
+<h1 align="center"> UpSolitions - Gerenciamento </h1>
 <h3 align="center">Desenvolvimento de projetos de estudos na plataforma .NET e linguagem C#. 😄</h3>
 
 ## 📚 Sobre o projeto
 
-O projeto tem como objetivo criar uma aplicação bancária, onde o usuário poderá criar uma conta, fazer depósitos, transferências e saques. O projeto está sendo desenvolvido em grupo, com o objetivo de compartilhar conhecimentos e experiências.
+O projeto tem como objetivo criar uma aplicação de gerenciamento de Livraria<!-- >, onde o usuário poderá criar uma conta, fazer depósitos, transferências e saques. O projeto está sendo desenvolvido em grupo, com o objetivo de compartilhar conhecimentos e experiências.-->
 
 ## 📝 Conteúdo
 
@@ -13,7 +13,7 @@ O projeto tem como objetivo criar uma aplicação bancária, onde o usuário pod
 
 ### 📋 Pré-requisitos
 
-- [.NET 7.0](https://dotnet.microsoft.com/download/dotnet/7.0)
+- [.NET 8.0](https://dotnet.microsoft.com/download/dotnet/8.0)
 - [Sql Server](https://www.microsoft.com/pt-br/sql-server/sql-server-downloads)
 
 ### 🎲 Configuração do banco de dados
@@ -22,11 +22,11 @@ A configuração do banco de dados é feita através do arquivo appsettings.json
 
 ```json
 "ConnectionStrings": {
-    "ByteBankConnection": "Server=(localdb)\\mssqllocaldb;Database=bytebank;Trusted_Connection=True;MultipleActiveResultSets=true"
+  "AllConnection": "Server=localhost;Database=UpSoluctionsDB;User ID="";Password="";TrustServerCertificate=True"
 }
 ```
 
-### 🐱‍👤 Configuração Token JWT
+<!--### 🐱‍👤 Configuração Token JWT
 
 A configuração adicionais para implementação da segurança da API através de Token JWT é feita através do arquivo appsettings.json, que fica na raiz do projeto.
 
