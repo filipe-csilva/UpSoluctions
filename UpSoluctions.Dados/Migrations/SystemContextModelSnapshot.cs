@@ -93,17 +93,17 @@ namespace UpSoluctions.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AuthorIdId")
+                    b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CategoryIdId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PublishingCompanyIdId")
+                    b.Property<int>("PublishingCompanyId")
                         .HasColumnType("int");
 
                     b.Property<float>("SalePrice")
@@ -115,11 +115,11 @@ namespace UpSoluctions.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorIdId");
+                    b.HasIndex("AuthorId");
 
-                    b.HasIndex("CategoryIdId");
+                    b.HasIndex("CategoryId");
 
-                    b.HasIndex("PublishingCompanyIdId");
+                    b.HasIndex("PublishingCompanyId");
 
                     b.ToTable("Book");
                 });
@@ -222,7 +222,7 @@ namespace UpSoluctions.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BookIdId")
+                    b.Property<int>("BookId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DtProhibited")
@@ -233,7 +233,7 @@ namespace UpSoluctions.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookIdId");
+                    b.HasIndex("BookId");
 
                     b.ToTable("Prohibited");
                 });
@@ -278,29 +278,29 @@ namespace UpSoluctions.Data.Migrations
 
             modelBuilder.Entity("UpSoluctions.Data.Entities.Book", b =>
                 {
-                    b.HasOne("UpSoluctions.Data.Entities.Author", "AuthorId")
-                        .WithMany()
-                        .HasForeignKey("AuthorIdId")
+                    b.HasOne("UpSoluctions.Data.Entities.Author", "Author")
+                        .WithMany("Books")
+                        .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("UpSoluctions.Data.Entities.Category", "CategoryId")
-                        .WithMany()
-                        .HasForeignKey("CategoryIdId")
+                    b.HasOne("UpSoluctions.Data.Entities.Category", "Category")
+                        .WithMany("Books")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("UpSoluctions.Data.Entities.PublishingCompany", "PublishingCompanyId")
+                    b.HasOne("UpSoluctions.Data.Entities.PublishingCompany", "PublishingCompany")
                         .WithMany()
-                        .HasForeignKey("PublishingCompanyIdId")
+                        .HasForeignKey("PublishingCompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AuthorId");
+                    b.Navigation("Author");
 
-                    b.Navigation("CategoryId");
+                    b.Navigation("Category");
 
-                    b.Navigation("PublishingCompanyId");
+                    b.Navigation("PublishingCompany");
                 });
 
             modelBuilder.Entity("UpSoluctions.Data.Entities.ClientCompany", b =>
@@ -327,13 +327,13 @@ namespace UpSoluctions.Data.Migrations
 
             modelBuilder.Entity("UpSoluctions.Data.Entities.Prohibited", b =>
                 {
-                    b.HasOne("UpSoluctions.Data.Entities.Book", "BookId")
+                    b.HasOne("UpSoluctions.Data.Entities.Book", "Book")
                         .WithMany("ProhibitedId")
-                        .HasForeignKey("BookIdId")
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("BookId");
+                    b.Navigation("Book");
                 });
 
             modelBuilder.Entity("UpSoluctions.Data.Entities.PublishingCompany", b =>
@@ -347,9 +347,19 @@ namespace UpSoluctions.Data.Migrations
                     b.Navigation("Andress");
                 });
 
+            modelBuilder.Entity("UpSoluctions.Data.Entities.Author", b =>
+                {
+                    b.Navigation("Books");
+                });
+
             modelBuilder.Entity("UpSoluctions.Data.Entities.Book", b =>
                 {
                     b.Navigation("ProhibitedId");
+                });
+
+            modelBuilder.Entity("UpSoluctions.Data.Entities.Category", b =>
+                {
+                    b.Navigation("Books");
                 });
 #pragma warning restore 612, 618
         }

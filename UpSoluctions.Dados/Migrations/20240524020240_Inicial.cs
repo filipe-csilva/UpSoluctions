@@ -136,29 +136,29 @@ namespace UpSoluctions.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CategoryIdId = table.Column<int>(type: "int", nullable: false),
-                    AuthorIdId = table.Column<int>(type: "int", nullable: false),
-                    PublishingCompanyIdId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    AuthorId = table.Column<int>(type: "int", nullable: false),
+                    PublishingCompanyId = table.Column<int>(type: "int", nullable: false),
                     SalePrice = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Book", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Book_Author_AuthorIdId",
-                        column: x => x.AuthorIdId,
+                        name: "FK_Book_Author_AuthorId",
+                        column: x => x.AuthorId,
                         principalTable: "Author",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Book_Category_CategoryIdId",
-                        column: x => x.CategoryIdId,
+                        name: "FK_Book_Category_CategoryId",
+                        column: x => x.CategoryId,
                         principalTable: "Category",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Book_Publishing_Company_PublishingCompanyIdId",
-                        column: x => x.PublishingCompanyIdId,
+                        name: "FK_Book_Publishing_Company_PublishingCompanyId",
+                        column: x => x.PublishingCompanyId,
                         principalTable: "Publishing_Company",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -171,34 +171,34 @@ namespace UpSoluctions.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DtProhibited = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BookIdId = table.Column<int>(type: "int", nullable: false),
+                    BookId = table.Column<int>(type: "int", nullable: false),
                     OrderPrice = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Prohibited", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Prohibited_Book_BookIdId",
-                        column: x => x.BookIdId,
+                        name: "FK_Prohibited_Book_BookId",
+                        column: x => x.BookId,
                         principalTable: "Book",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Book_AuthorIdId",
+                name: "IX_Book_AuthorId",
                 table: "Book",
-                column: "AuthorIdId");
+                column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Book_CategoryIdId",
+                name: "IX_Book_CategoryId",
                 table: "Book",
-                column: "CategoryIdId");
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Book_PublishingCompanyIdId",
+                name: "IX_Book_PublishingCompanyId",
                 table: "Book",
-                column: "PublishingCompanyIdId");
+                column: "PublishingCompanyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Client_Company_AndressId",
@@ -211,9 +211,9 @@ namespace UpSoluctions.Data.Migrations
                 column: "AndressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Prohibited_BookIdId",
+                name: "IX_Prohibited_BookId",
                 table: "Prohibited",
-                column: "BookIdId");
+                column: "BookId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Publishing_Company_AndressId",
