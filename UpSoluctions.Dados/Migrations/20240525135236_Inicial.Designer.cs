@@ -12,7 +12,7 @@ using UpSoluctions.Data;
 namespace UpSoluctions.Data.Migrations
 {
     [DbContext(typeof(SystemContext))]
-    [Migration("20240524020240_Inicial")]
+    [Migration("20240525135236_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -84,6 +84,9 @@ namespace UpSoluctions.Data.Migrations
                         .HasColumnType("nvarchar(150)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Author");
                 });

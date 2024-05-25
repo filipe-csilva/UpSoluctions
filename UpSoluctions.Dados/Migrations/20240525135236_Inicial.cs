@@ -186,6 +186,12 @@ namespace UpSoluctions.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Author_Name",
+                table: "Author",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Book_AuthorId",
                 table: "Book",
                 column: "AuthorId");

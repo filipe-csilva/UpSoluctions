@@ -4,7 +4,7 @@ using UpSoluctions.Data.Entities;
 
 namespace UpSoluctions.Data.Map
 {
-    public class CategoryTypeConfiguration : IEntityTypeConfiguration<Category>
+    public class CategoryTypeConfig : IEntityTypeConfiguration<Category>
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {

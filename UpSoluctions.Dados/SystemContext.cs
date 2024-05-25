@@ -21,8 +21,8 @@ namespace UpSoluctions.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new AuthorTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new CategoryTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new AuthorTypeConfig());
+            modelBuilder.ApplyConfiguration(new CategoryTypeConfig());
             base.OnModelCreating(modelBuilder);
         }
     }

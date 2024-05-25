@@ -43,22 +43,29 @@ namespace UpSoluctions.API.Controlles
         [HttpPost]
         public async Task<ReadAuthorDto> AddAuthor(CreateAuthorDto authorDto)
         {
-            Author author = new Author()
+            try
             {
-                Name = authorDto.Name,
-                Biography = authorDto.Biography
-            };
+                Author author = new Author()
+                {
+                    Name = authorDto.Name,
+                    Biography = authorDto.Biography
+                };
 
-            await _authorRepository.CreateAsync(author);
+                    await _authorRepository.CreateAsync(author);
 
-            ReadAuthorDto autorReturn = new ReadAuthorDto()
+                ReadAuthorDto autorReturn = new ReadAuthorDto()
+                {
+                    Id = author.Id,
+                    Name = author.Name,
+                    Biography = author.Biography
+                };
+
+                return autorReturn;
+            }
+            catch (Exception ex)
             {
-                Id = author.Id,
-                Name = author.Name,
-                Biography = author.Biography
-            };
-
-            return autorReturn;
+                return StatusCode(500, "An error occurred while adding the author.");
+            }
         }
 
         [HttpPut("id")]
