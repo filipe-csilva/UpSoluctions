@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 using UpSoluctions.API.Repository;
 using UpSoluctions.API.Repository.Interfaces;
 using UpSoluctions.Data;
+using UpSoluctions.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +12,8 @@ builder.Services.AddDbContext<SystemContext>(opt => opt.UseSqlServer(builder.Con
 
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+builder.Services.AddTransient<TokenService>();
 
 builder.Services.AddControllers();
 
@@ -32,5 +34,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapGet("/", (TokenService service) => service.GenerateToken(null));
 
 app.Run();

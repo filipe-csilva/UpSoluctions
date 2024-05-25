@@ -13,11 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\ImgProducts\" />
+    <ProjectReference Include="..\UpSoluctions.Dados\UpSoluctions.Data.csproj" />
+    <ProjectReference Include="..\UpSolutions.Services\UpSoluctions.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UpSoluctions.Dados\UpSoluctions.Data.csproj" />
+    <Folder Include="wwwroot\FotosPerfil\" />
   </ItemGroup>
 
 </Project>
