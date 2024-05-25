@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using UpSoluctions.API.Repository.Interfaces;
 using UpSoluctions.Data.Dtos;
 using UpSoluctions.Data.Entities;
@@ -43,29 +44,22 @@ namespace UpSoluctions.API.Controlles
         [HttpPost]
         public async Task<ReadAuthorDto> AddAuthor(CreateAuthorDto authorDto)
         {
-            try
+            Author author = new Author()
             {
-                Author author = new Author()
-                {
-                    Name = authorDto.Name,
-                    Biography = authorDto.Biography
-                };
+                Name = authorDto.Name,
+                Biography = authorDto.Biography
+            };
 
-                    await _authorRepository.CreateAsync(author);
+                await _authorRepository.CreateAsync(author);
 
-                ReadAuthorDto autorReturn = new ReadAuthorDto()
-                {
-                    Id = author.Id,
-                    Name = author.Name,
-                    Biography = author.Biography
-                };
-
-                return autorReturn;
-            }
-            catch (Exception ex)
+            ReadAuthorDto autorReturn = new ReadAuthorDto()
             {
-                return StatusCode(500, "An error occurred while adding the author.");
-            }
+                Id = author.Id,
+                Name = author.Name,
+                Biography = author.Biography
+            };
+
+            return autorReturn;
         }
 
         [HttpPut("id")]
