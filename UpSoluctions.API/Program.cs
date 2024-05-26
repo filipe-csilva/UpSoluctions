@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using UpSoluctions.API.Repository;
 using UpSoluctions.API.Repository.Interfaces;
 using UpSoluctions.Data;
+using UpSoluctions.Data.Entities;
 using UpSoluctions.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,6 +36,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapGet("/", (TokenService service) => service.GenerateToken(null));
+//Teste de Token
+//app.MapGet("/", (TokenService service) => service.GenerateToken(new User(1,"f@f.com","123", new[] {"Studenty"})));
 
 app.Run();

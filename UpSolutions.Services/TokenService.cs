@@ -1,5 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using UpSoluctions.Data.Entities;
 
@@ -15,6 +16,7 @@ namespace UpSoluctions.Services
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
+                Subject = GenerateClaims(user),
                 SigningCredentials = credentials,
                 Expires = DateTime.UtcNow.AddHours(1)
             };
@@ -22,6 +24,17 @@ namespace UpSoluctions.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
+        }
+
+        private static ClaimsIdentity GenerateClaims(User user)
+        {
+            var claims = new ClaimsIdentity();
+            claims.AddClaim(new Claim(ClaimTypes.Name, user.Email));
+            foreach (var role in user.Roles)
+            {
+                claims.AddClaim(new Claim(ClaimTypes.Role, role));
+            }
+            return claims;
         }
     }
 }

@@ -4,11 +4,19 @@ namespace UpSoluctions.Data.Entities
 {
     public class User
     {
+        public User(int id, string? email, string? password, string[] roles)
+        {
+            Id = id;
+            Email = email;
+            Password = password;
+            Roles = roles;
+        }
+
         public int Id { get; set; }
         [Required]
-        public string? UserName { get; set; }
-        //[Required]
-        //public DateTime DateBirday { get; set; }
+        public string? Email { get; set; }
+        [Required]
+        public DateTime DateBirday { get; set; }
         [Required]
         [DataType(DataType.Password)]
         public string? Password { get; set; }
@@ -16,6 +24,6 @@ namespace UpSoluctions.Data.Entities
         [Compare("Password")]
         public string? RePassword { get; set; }
         [Required]
-        public string Role { get; set; }
+        public string[] Roles { get; set; }
     }
 }
