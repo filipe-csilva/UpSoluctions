@@ -26,7 +26,7 @@ A configuração do banco de dados é feita através do arquivo appsettings.json
 }
 ```
 
-<!--### 🐱‍👤 Configuração Token JWT
+### 🐱‍👤 Configuração Token JWT
 
 A configuração adicionais para implementação da segurança da API através de Token JWT é feita através do arquivo appsettings.json, que fica na raiz do projeto.
 
@@ -41,7 +41,7 @@ A configuração adicionais para implementação da segurança da API através d
   }
 ```
 
-## 🚀 Como executar o projeto
+<!--## 🚀 Como executar o projeto
 
 ```bash
 # Clone este repositório
