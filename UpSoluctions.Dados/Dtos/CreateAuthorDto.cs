@@ -1,8 +1,6 @@
-﻿namespace UpSoluctions.Data.Dtos
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace UpSoluctions.Data.Dtos
 {
-    public class CreateAuthorDto
-    {
-        public string? Name { get; set; }
-        public string? Biography { get; set; }
-    }
+    public record CreateAuthorDto([Required] string Name, [Required] string Biography);
 }
