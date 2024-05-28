@@ -27,7 +27,7 @@ namespace UpSoluctions.API.Controlles
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ReadAuthorDto>> SearchUserById(int id)
+        public async Task<ActionResult<ReadAuthorDto>> SearchAuthorById(int id)
         {
             Author? author = await _authorRepository.SearchByIdAsync(id);
 

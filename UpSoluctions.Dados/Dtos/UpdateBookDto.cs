@@ -7,5 +7,5 @@ using UpSoluctions.Data.Entities;
 
 namespace UpSoluctions.Data.Dtos
 {
-    public record UpdateBook(int Id, string Title, string Description, Category Category, Author Author, PublishingCompany PublishingCompany, Prohibited Prohibited);
+    public record UpdateBookDto(int Id, string Title, string Description, Category Category, Author Author, PublishingCompany PublishingCompany);
 }
