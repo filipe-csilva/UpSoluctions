@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UpSoluctions.API.Repository.Interfaces;
 using UpSoluctions.Data.Dtos;
@@ -8,6 +9,7 @@ namespace UpSoluctions.API.Controlles
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class AuthorController : ControllerBase
     {
         private readonly IAuthorRepository _authorRepository;
@@ -45,7 +47,7 @@ namespace UpSoluctions.API.Controlles
                 Biography = authorDto.Biography
             };
 
-                await _authorRepository.CreateAsync(author);
+            await _authorRepository.CreateAsync(author);
 
             ReadAuthorDto authorReturn = new ReadAuthorDto(author.Id, author.Name, author.Biography);
 
