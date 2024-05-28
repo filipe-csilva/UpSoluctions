@@ -31,14 +31,9 @@ namespace UpSoluctions.API.Controlles
 
             if (author == null) return NotFound();
 
-            ReadAuthorDto userReturn = new ReadAuthorDto()
-            {
-                Id = author.Id,
-                Name = author.Name,
-                Biography = author.Biography
-            };
+            ReadAuthorDto authorReturn = new ReadAuthorDto( author.Id, author.Name, author.Biography );
 
-            return userReturn;
+            return authorReturn;
         }
 
         [HttpPost]
@@ -52,14 +47,9 @@ namespace UpSoluctions.API.Controlles
 
                 await _authorRepository.CreateAsync(author);
 
-            ReadAuthorDto autorReturn = new ReadAuthorDto()
-            {
-                Id = author.Id,
-                Name = author.Name,
-                Biography = author.Biography
-            };
+            ReadAuthorDto authorReturn = new ReadAuthorDto(author.Id, author.Name, author.Biography);
 
-            return autorReturn;
+            return authorReturn;
         }
 
         [HttpPut("id")]
@@ -74,12 +64,7 @@ namespace UpSoluctions.API.Controlles
 
             await _authorRepository.UpdateAsync(author, id);
 
-            ReadAuthorDto authorReturn = new ReadAuthorDto()
-            {
-                Id = author.Id,
-                Name = author.Name,
-                Biography = author.Biography
-            };
+            ReadAuthorDto authorReturn = new ReadAuthorDto(author.Id, author.Name, author.Biography);
 
             return authorReturn;
         }

@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using UpSoluctions.Data.Entities;
 using UpSoluctions.Data.Map;
 
 namespace UpSoluctions.Data
 {
-    public class SystemContext : DbContext
+    public class SystemContext : IdentityDbContext<PessoaComAcesso, PerfilDeAcesso, int>
     {
         public SystemContext(DbContextOptions<SystemContext> options) : base(options)
         {

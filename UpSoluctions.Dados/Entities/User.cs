@@ -4,14 +4,6 @@ namespace UpSoluctions.Data.Entities
 {
     public class User
     {
-        public User(int id, string? email, string? password, string[] roles)
-        {
-            Id = id;
-            Email = email;
-            Password = password;
-            Roles = roles;
-        }
-
         public int Id { get; set; }
         [Required]
         public string? Email { get; set; }

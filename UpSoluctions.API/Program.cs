@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 using UpSoluctions.API.Repository;
 using UpSoluctions.API.Repository.Interfaces;
 using UpSoluctions.Data;
 using UpSoluctions.Data.Entities;
-using UpSoluctions.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,10 +11,18 @@ builder.Services.AddDbContext<SystemContext>(opt => opt.UseSqlServer(builder.Con
     //,x => x.MigrationsAssembly(Assembly.)
     ));
 
+builder.Services.AddIdentityApiEndpoints<PessoaComAcesso>().AddEntityFrameworkStores<SystemContext>();
+
+builder.Services.AddAuthorization();
+
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
-builder.Services.AddTransient<TokenService>();
+//builder.Services.AddTransient<TokenService>();
+
+builder.Services.AddTransient<DAL<PessoaComAcesso>>();
+
+builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 builder.Services.AddControllers();
 
@@ -22,6 +30,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.MapGroup("auth").MapIdentityApi<PessoaComAcesso>().WithTags("Autorization");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -32,6 +42,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseStaticFiles();
 app.UseAuthorization();
 
 app.MapControllers();
