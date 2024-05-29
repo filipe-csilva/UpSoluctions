@@ -30,7 +30,7 @@ namespace UpSoluctions.API.Controlles
 
             if (book == null) return NotFound();
 
-            ReadCategoryDto BookReturn = new ReadBookDto(book.Id, book.Title, book.Description, book.Category, book.Author, book.PublishingCompany, book.Prohibited);
+            ReadCategoryDto xategoryReturn = new ReadCategoryDto(category.Id, category.Title);
 
             return Ok(BookReturn);
         }
