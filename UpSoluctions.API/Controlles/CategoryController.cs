@@ -30,7 +30,7 @@ namespace UpSoluctions.API.Controlles
 
             if (book == null) return NotFound();
 
-            ReadCategoryDto xategoryReturn = new ReadCategoryDto(category.Id, category.Title);
+            ReadCategoryDto xategoryReturn = new ReadCategoryDto(category.Id, category.Name, );
 
             return Ok(BookReturn);
         }
