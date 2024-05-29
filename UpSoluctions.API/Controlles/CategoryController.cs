@@ -22,5 +22,17 @@ namespace UpSoluctions.API.Controlles
             ICollection<Category> category = await _categoryRepository.GetAllAsync();
             return Ok(category);
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ReadBookDto>> SearchById(int id)
+        {
+            Category? category = await _categoryRepository.GetByIdAsync(id);
+
+            if (book == null) return NotFound();
+
+            ReadCategoryDto BookReturn = new ReadBookDto(book.Id, book.Title, book.Description, book.Category, book.Author, book.PublishingCompany, book.Prohibited);
+
+            return Ok(BookReturn);
+        }
     }
 }
