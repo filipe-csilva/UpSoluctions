@@ -20,14 +20,14 @@ namespace UpSoluctions.API.Controlles
         }
 
         [HttpGet]
-        public async Task<ActionResult<ICollection<ReadAuthorDto>>> SearchAllAuthor()
+        public async Task<ActionResult<ICollection<ReadAuthorDto>>> SearchAllAsync()
         { 
             ICollection<Author> authors = await _authorRepository.GetAllAsync();
             return Ok(authors);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ReadAuthorDto>> SearchAuthorById(int id)
+        public async Task<ActionResult<ReadAuthorDto>> SearchByIdAsync(int id)
         {
             Author? author = await _authorRepository.SearchByIdAsync(id);
 
@@ -39,7 +39,7 @@ namespace UpSoluctions.API.Controlles
         }
 
         [HttpPost]
-        public async Task<ReadAuthorDto> AddAuthor(CreateAuthorDto authorDto)
+        public async Task<ReadAuthorDto> AddAsync(CreateAuthorDto authorDto)
         {
             Author author = new Author()
             {
@@ -55,7 +55,7 @@ namespace UpSoluctions.API.Controlles
         }
 
         [HttpPut("id")]
-        public async Task<ReadAuthorDto> UpdateAuthorById(UpdateAuthorDto auth, int id)
+        public async Task<ReadAuthorDto> UpdateByIdAsync(UpdateAuthorDto auth, int id)
         {
             Author author = new Author()
             {

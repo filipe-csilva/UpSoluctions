@@ -19,14 +19,14 @@ namespace UpSoluctions.API.Controlles
         }
 
         [HttpGet]
-        public async Task<ActionResult<ICollection<ReadBookDto>>> SearchAllBook()
+        public async Task<ActionResult<ICollection<ReadBookDto>>> SearchAll()
         {
             ICollection<Book> books = await _bookRepository.GetAllAsync();
             return Ok(books);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ReadBookDto>> SearchBookById(int id)
+        public async Task<ActionResult<ReadBookDto>> SearchById(int id)
         {
             Book? book = await _bookRepository.GetByIdAsync(id);
 
@@ -38,7 +38,7 @@ namespace UpSoluctions.API.Controlles
         }
 
         [HttpPost]
-        public async Task<ReadBookDto> AddBook(CreateBookDto bookDto)
+        public async Task<ReadBookDto> AddAsync(CreateBookDto bookDto)
         {
             Book book = new Book()
             {
@@ -53,6 +53,32 @@ namespace UpSoluctions.API.Controlles
             ReadBookDto bookReturn = new ReadBookDto(book.Id, book.Title, book.Description, book.Category, book.Author, book.PublishingCompany, book.Prohibited);
 
             return bookReturn;
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ReadBookDto> UpdateAsync(UpdateBookDto bookDto, int id)
+        {
+            Book book = new Book()
+            {
+                Id = id,
+                Title = bookDto.Title,
+                Description = bookDto.Description,
+                Category = bookDto.Category,
+                Author = bookDto.Author
+            };
+
+            await _bookRepository.UpdateAsync(book, id);
+
+            ReadBookDto bookReturn = new ReadBookDto(book.Id, book.Title, book.Description, book.Category, book.Author, book.PublishingCompany, book.Prohibited);
+
+            return bookReturn;
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<Book> DeleteAsync(int id)
+        {
+            Book book = await _bookRepository.DeleteAsync(id);
+            return book;
         }
     }
 }
