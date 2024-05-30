@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using UpSoluctions.API.Repository.Interfaces;
 using UpSoluctions.Data.Dtos;
 using UpSoluctions.Data.Entities;
@@ -32,7 +31,7 @@ namespace UpSoluctions.API.Controlles
             Author? author = await _authorRepository.SearchByIdAsync(id);
 
             if (author == null) return NotFound();
-
+            
             ReadAuthorDto authorReturn = new ReadAuthorDto( author.Id, author.Name, author.Biography );
 
             return authorReturn;

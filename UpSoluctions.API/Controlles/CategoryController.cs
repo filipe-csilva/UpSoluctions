@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using UpSoluctions.API.Repository.Interfaces;
 using UpSoluctions.Data.Dtos;
 using UpSoluctions.Data.Entities;
@@ -7,6 +8,7 @@ namespace UpSoluctions.API.Controlles
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryRepository _categoryRepository;
@@ -28,11 +30,11 @@ namespace UpSoluctions.API.Controlles
         {
             Category? category = await _categoryRepository.GetByIdAsync(id);
 
-            if (book == null) return NotFound();
+            if (category == null) return NotFound();
 
-            ReadCategoryDto xategoryReturn = new ReadCategoryDto(category.Id, category.Name);
+            ReadCategoryDto categoryReturn = new ReadCategoryDto(category.Id, category.Name);
 
-            return Ok(BookReturn);
+            return Ok(categoryReturn);
         }
         [HttpPost]
         public async Task<ReadCategoryDto> AddAsync(CreateCategoryDto categoryDto)
@@ -49,7 +51,7 @@ namespace UpSoluctions.API.Controlles
         }
 
         [HttpPut("id")]
-        public async Task<ReadCategryDto> UpdateByIdAsync(UpdateCategoryDto categ, int id)
+        public async Task<ReadCategoryDto> UpdateByIdAsync(UpdateCategoryDto categ, int id)
         {
             Category category = new Category()
             {

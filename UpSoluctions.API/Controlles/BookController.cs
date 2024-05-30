@@ -6,8 +6,8 @@ using UpSoluctions.Data.Entities;
 
 namespace UpSoluctions.API.Controlles
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     [Authorize]
     public class BookController : ControllerBase
     {
