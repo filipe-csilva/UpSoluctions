@@ -1,8 +1,4 @@
 ﻿namespace UpSoluctions.Data.Dtos
 {
-    public class UpdateCategoryDto
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
+    public record UpdateCategoryDto(int Id, string Name);
 }

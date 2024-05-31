@@ -32,7 +32,7 @@ namespace UpSoluctions.API.Controlles
 
             if (category == null) return NotFound();
 
-            ReadCategoryDto categoryReturn = new ReadCategoryDto(category.Id, category.Name);
+            ReadCategoryDto categoryReturn = new ReadCategoryDto(category.Id, category.Name, category.Books);
 
             return Ok(categoryReturn);
         }
@@ -45,7 +45,7 @@ namespace UpSoluctions.API.Controlles
             };
             await _categoryRepository.CreateAsync(category);
 
-            ReadCategoryDto categoryReturn = new ReadCategoryDto(category.Id, category.Name);
+            ReadCategoryDto categoryReturn = new ReadCategoryDto(category.Id, category.Name, category.Books);
 
             return categoryReturn;
         }
@@ -61,7 +61,7 @@ namespace UpSoluctions.API.Controlles
 
             await _categoryRepository.UpdateAsync(category, id);
 
-            ReadCategoryDto categoryReturn = new ReadCategoryDto(category.Id, category.Name);
+            ReadCategoryDto categoryReturn = new ReadCategoryDto(category.Id, category.Name, category.Books);
 
             return categoryReturn;
         }

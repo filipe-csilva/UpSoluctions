@@ -1,6 +1,6 @@
 ﻿namespace UpSoluctions.Data.Entities
 {
-    public class ClientPerson : Person
+    public class ClientPerson : PersonBaseDto
     {
         public string Registration { get; set; }
     }
