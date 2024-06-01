@@ -8,12 +8,12 @@ namespace UpSoluctions.Services
 {
     public class TokenService
     {
-        public string GenerateToken(Employee employee)
+        public static object GenerateToken(Employee employee)
         {
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
             var tokenConfig = new SecurityTokenDescriptor
             {
-                Subject = new System.Security.Claims.ClaimsIdentity(new Claim[]
+                Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim("employeeId", employee.Id.ToString())
                 }),

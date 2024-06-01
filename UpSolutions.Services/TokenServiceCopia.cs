@@ -6,9 +6,9 @@ using UpSoluctions.Data.Entities;
 
 namespace UpSoluctions.Services
 {
-    public class TokenService
+    public class TokenServicee
     {
-        public string GenerateToken(User user)
+        public string GenerateTokenn(Employee employee)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
@@ -16,7 +16,7 @@ namespace UpSoluctions.Services
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = GenerateClaims(user),
+                Subject = GenerateClaims(employee),
                 SigningCredentials = credentials,
                 Expires = DateTime.UtcNow.AddHours(1)
             };
@@ -26,11 +26,11 @@ namespace UpSoluctions.Services
             return tokenHandler.WriteToken(token);
         }
 
-        private static ClaimsIdentity GenerateClaims(User user)
+        private static ClaimsIdentity GenerateClaims(Employee employee)
         {
             var claims = new ClaimsIdentity();
-            claims.AddClaim(new Claim(ClaimTypes.Name, user.Email));
-            foreach (var role in user.Roles)
+            claims.AddClaim(new Claim(ClaimTypes.Name, employee.Email));
+            foreach (var role in employee.Roles)
             {
                 claims.AddClaim(new Claim(ClaimTypes.Role, role));
             }
