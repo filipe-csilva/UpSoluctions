@@ -6,9 +6,9 @@ using UpSoluctions.Data.Entities;
 
 namespace UpSoluctions.API.Controlles
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryRepository _categoryRepository;
@@ -37,17 +37,25 @@ namespace UpSoluctions.API.Controlles
             return Ok(categoryReturn);
         }
         [HttpPost]
-        public async Task<ReadCategoryDto> AddAsync(CreateCategoryDto categoryDto)
+        public async Task<ActionResult<ReadCategoryDto>> AddAsync(CreateCategoryDto categoryDto)
         {
-            Category category = new Category()
+            try
             {
-                Name = categoryDto.Name
-            };
-            await _categoryRepository.CreateAsync(category);
+                Category category = new Category()
+                {
+                    Name = categoryDto.Name
+                };
+                await _categoryRepository.CreateAsync(category);
 
-            ReadCategoryDto categoryReturn = new ReadCategoryDto(category.Id, category.Name, category.Books);
+                ReadCategoryDto categoryReturn = new ReadCategoryDto(category.Id, category.Name, category.Books);
 
-            return categoryReturn;
+                return Ok(categoryReturn);
+            }
+            catch
+            {
+                return BadRequest("Já existe Item com este nome!");
+            }
+            
         }
 
         [HttpPut("id")]

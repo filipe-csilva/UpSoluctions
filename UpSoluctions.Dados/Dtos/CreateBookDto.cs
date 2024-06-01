@@ -2,5 +2,5 @@
 
 namespace UpSoluctions.Data.Dtos
 {
-    public record CreateBookDto( string Title, string Description, Category Category, Author Author, PublishingCompany PublishingCompany);
+    public record CreateBookDto( string Title, string Description, int CategoryId, int AuthorId, int PublishingCompanyId);
 }

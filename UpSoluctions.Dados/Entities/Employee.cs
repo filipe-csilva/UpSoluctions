@@ -6,7 +6,9 @@ namespace UpSoluctions.Data.Entities
     {
         public int Id { get; set; }
         [Required]
-        public string? Email { get; set; }
+        public string Name { get; set; }
+        [Required]
+        public string Email { get; set; }
         [Required]
         public DateTime DateBirday { get; set; }
         [Required]
@@ -15,6 +17,7 @@ namespace UpSoluctions.Data.Entities
         [Required]
         [Compare("Password")]
         public string? RePassword { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.UtcNow.Date;
         [Required]
         public string[] Roles { get; set; }
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -6,11 +7,15 @@ using UpSoluctions.Data.Entities;
 
 namespace UpSoluctions.Services
 {
-    public class TokenService
+    public class TokenService(IConfiguration configuration)
     {
-        public static object GenerateToken(Employee employee)
+        private readonly IConfiguration _configuration = configuration;
+
+        public object GenerateToken(Employee employee)
         {
-            var key = Encoding.ASCII.GetBytes(Settings.Secret);
+            var Secret = _configuration["Secret"];
+
+            var key = Encoding.ASCII.GetBytes(Secret);
             var tokenConfig = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]

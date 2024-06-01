@@ -17,12 +17,15 @@ builder.Services.AddDbContext<SystemContext>(opt => opt.UseSqlServer(builder.Con
     //,x => x.MigrationsAssembly(Assembly.)
     ));
 
-builder.Services.AddIdentityApiEndpoints<PessoaComAcesso>().AddEntityFrameworkStores<SystemContext>();
+//builder.Services.AddIdentityApiEndpoints<PessoaComAcesso>().AddEntityFrameworkStores<SystemContext>();
 
 builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<TokenService>();
 
 //builder.Services.AddTransient<TokenService>();
 
@@ -63,28 +66,30 @@ builder.Services.AddSwaggerGen(x =>
     });
 });
 
-var app = builder.Build();
+var Secret = builder.Configuration["Secret"];
 
-var key = Encoding.ASCII.GetBytes(Settings.Secret);
+var key = Encoding.ASCII.GetBytes(Secret);
 
 builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.RequireHttpsMetadata = false;
+    x.SaveToken = true;
+    x.TokenValidationParameters = new TokenValidationParameters
     {
-        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    }).AddJwtBearer(x =>
-    {
-        x.RequireHttpsMetadata = false;
-        x.SaveToken = true;
-        x.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidateIssuer = false,
-            ValidateAudience = false
-        };
-    });
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+});
 
-app.MapGroup("auth").MapIdentityApi<PessoaComAcesso>().WithTags("Autorization");
+var app = builder.Build();
+
+//app.MapGroup("auth").MapIdentityApi<PessoaComAcesso>().WithTags("Autorization");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

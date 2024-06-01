@@ -4,9 +4,9 @@ using UpSoluctions.Data.Entities;
 
 namespace UpSoluctions.API.Repository
 {
-    public class BookRepository : GenericRepository<Book>, IBookRepository
+    public class EmployeeRepository : GenericRepository<Employee>, IEmployeeRepository
     {
-        public BookRepository(SystemContext context) : base(context)
+        public EmployeeRepository(SystemContext context) : base(context)
         {
         }
     }

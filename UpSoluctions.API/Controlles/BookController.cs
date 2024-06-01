@@ -6,9 +6,9 @@ using UpSoluctions.Data.Entities;
 
 namespace UpSoluctions.API.Controlles
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class BookController : ControllerBase
     {
         private readonly IBookRepository _bookRepository;
@@ -32,27 +32,34 @@ namespace UpSoluctions.API.Controlles
 
             if (book == null) return NotFound();
 
-            ReadBookDto BookReturn = new ReadBookDto(book.Id, book.Title, book.Description, book.Category, book.Author, book.PublishingCompany, book.Prohibited);
+            ReadBookDto BookReturn = new ReadBookDto(book.Id, book.Title, book.Description, book.Category.Name, book.Author.Name, book.PublishingCompany.Name);
 
             return Ok(BookReturn);
         }
 
         [HttpPost]
-        public async Task<ReadBookDto> AddAsync(CreateBookDto bookDto)
+        public async Task<ActionResult<ReadBookDto>> AddAsync(CreateBookDto bookDto)
         {
-            Book book = new Book()
+            try
             {
-                Title = bookDto.Title,
-                Description = bookDto.Description,
-                Category = bookDto.Category,
-                Author = bookDto.Author
-            };
+                Book book = new Book()
+                {
+                    Title = bookDto.Title,
+                    Description = bookDto.Description,
+                    CategoryId = bookDto.CategoryId,
+                    AuthorId = bookDto.AuthorId
+                };
 
-            await _bookRepository.CreateAsync(book);
+                await _bookRepository.CreateAsync(book);
 
-            ReadBookDto bookReturn = new ReadBookDto(book.Id, book.Title, book.Description, book.Category, book.Author, book.PublishingCompany, book.Prohibited);
+                ReadBookDto bookReturn = new ReadBookDto(book.Id, book.Title, book.Description, book.Category.Name, book.Author.Name, book.PublishingCompany.Name);
 
-            return bookReturn;
+                return Ok(bookReturn);
+            }
+            catch
+            {
+                return BadRequest("Já existe Item com este nome!");
+            }
         }
 
         [HttpPut("{id}")]
@@ -69,7 +76,7 @@ namespace UpSoluctions.API.Controlles
 
             await _bookRepository.UpdateAsync(book, id);
 
-            ReadBookDto bookReturn = new ReadBookDto(book.Id, book.Title, book.Description, book.Category, book.Author, book.PublishingCompany, book.Prohibited);
+            ReadBookDto bookReturn = new ReadBookDto(book.Id, book.Title, book.Description, book.Category.Name, book.Author.Name, book.PublishingCompany.Name);
 
             return bookReturn;
         }

@@ -12,7 +12,7 @@ using UpSoluctions.Data;
 namespace UpSoluctions.Data.Migrations
 {
     [DbContext(typeof(SystemContext))]
-    [Migration("20240528012148_Inicial")]
+    [Migration("20240601191355_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -247,6 +247,9 @@ namespace UpSoluctions.Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Category");
                 });
@@ -586,7 +589,7 @@ namespace UpSoluctions.Data.Migrations
             modelBuilder.Entity("UpSoluctions.Data.Entities.Prohibited", b =>
                 {
                     b.HasOne("UpSoluctions.Data.Entities.Book", "Book")
-                        .WithMany("ProhibitedId")
+                        .WithMany("Prohibited")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -612,7 +615,7 @@ namespace UpSoluctions.Data.Migrations
 
             modelBuilder.Entity("UpSoluctions.Data.Entities.Book", b =>
                 {
-                    b.Navigation("ProhibitedId");
+                    b.Navigation("Prohibited");
                 });
 
             modelBuilder.Entity("UpSoluctions.Data.Entities.Category", b =>

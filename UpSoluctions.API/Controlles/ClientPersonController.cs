@@ -6,9 +6,9 @@ using UpSoluctions.Data.Entities;
 
 namespace UpSoluctions.API.Controlles
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class ClientPersonController : ControllerBase
     {
         private readonly IAuthorRepository _authorRepository;

@@ -245,6 +245,9 @@ namespace UpSoluctions.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Category");
                 });
 
@@ -583,7 +586,7 @@ namespace UpSoluctions.Data.Migrations
             modelBuilder.Entity("UpSoluctions.Data.Entities.Prohibited", b =>
                 {
                     b.HasOne("UpSoluctions.Data.Entities.Book", "Book")
-                        .WithMany("ProhibitedId")
+                        .WithMany("Prohibited")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -609,7 +612,7 @@ namespace UpSoluctions.Data.Migrations
 
             modelBuilder.Entity("UpSoluctions.Data.Entities.Book", b =>
                 {
-                    b.Navigation("ProhibitedId");
+                    b.Navigation("Prohibited");
                 });
 
             modelBuilder.Entity("UpSoluctions.Data.Entities.Category", b =>

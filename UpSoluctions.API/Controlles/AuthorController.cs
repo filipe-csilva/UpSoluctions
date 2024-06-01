@@ -6,9 +6,9 @@ using UpSoluctions.Data.Entities;
 
 namespace UpSoluctions.API.Controlles
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class AuthorController : ControllerBase
     {
         private readonly IAuthorRepository _authorRepository;
@@ -38,19 +38,26 @@ namespace UpSoluctions.API.Controlles
         }
 
         [HttpPost]
-        public async Task<ReadAuthorDto> AddAsync(CreateAuthorDto authorDto)
+        public async Task<ActionResult<ReadAuthorDto>> AddAsync(CreateAuthorDto authorDto)
         {
-            Author author = new Author()
+            try
             {
-                Name = authorDto.Name,
-                Biography = authorDto.Biography
-            };
+                Author author = new Author()
+                {
+                    Name = authorDto.Name,
+                    Biography = authorDto.Biography
+                };
 
-            await _authorRepository.CreateAsync(author);
+                await _authorRepository.CreateAsync(author);
 
-            ReadAuthorDto authorReturn = new ReadAuthorDto(author.Id, author.Name, author.Biography);
+                ReadAuthorDto authorReturn = new ReadAuthorDto(author.Id, author.Name, author.Biography);
 
-            return authorReturn;
+                return Ok(authorReturn);
+            }
+            catch
+            {
+                return BadRequest("Já existe Item com este nome!");
+            }
         }
 
         [HttpPut("id")]
