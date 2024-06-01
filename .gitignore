@@ -362,3 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /UpSoluctions.API/Repository/DAL.cs
+/UpSolutions.Services/TokenService.cs
+/UpSolutions.Services/Settings.cs

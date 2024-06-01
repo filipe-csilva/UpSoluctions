@@ -8,33 +8,26 @@ namespace UpSoluctions.Services
 {
     public class TokenService
     {
-        public string GenerateToken(User user)
+        public string GenerateToken(Employee employee)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
-            var credentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature);
-
-            var tokenDescriptor = new SecurityTokenDescriptor
+            var tokenConfig = new SecurityTokenDescriptor
             {
-                Subject = GenerateClaims(user),
-                SigningCredentials = credentials,
-                Expires = DateTime.UtcNow.AddHours(1)
+                Subject = new System.Security.Claims.ClaimsIdentity(new Claim[]
+                {
+                    new Claim("employeeId", employee.Id.ToString())
+                }),
+                Expires = DateTime.UtcNow.AddHours(4),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenHandler = new JwtSecurityTokenHandler();
 
-            return tokenHandler.WriteToken(token);
-        }
+            var token = tokenHandler.CreateToken(tokenConfig);
 
-        private static ClaimsIdentity GenerateClaims(User user)
-        {
-            var claims = new ClaimsIdentity();
-            claims.AddClaim(new Claim(ClaimTypes.Name, user.Email));
-            foreach (var role in user.Roles)
-            {
-                claims.AddClaim(new Claim(ClaimTypes.Role, role));
-            }
-            return claims;
+            var tokenString = tokenHandler.WriteToken(token);
+
+            return new string( tokenString );
         }
     }
 }

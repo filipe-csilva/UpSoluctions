@@ -2,7 +2,7 @@
 
 namespace UpSoluctions.Data.Entities
 {
-    public class User
+    public class Employee
     {
         public int Id { get; set; }
         [Required]
