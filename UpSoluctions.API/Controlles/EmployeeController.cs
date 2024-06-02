@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography;
 using UpSoluctions.API.Repository.Interfaces;
 using UpSoluctions.Data.Dtos;
 using UpSoluctions.Data.Entities;
+using UpSoluctions.Services;
 
 namespace UpSoluctions.API.Controlles
 {
@@ -32,15 +34,50 @@ namespace UpSoluctions.API.Controlles
 
             if(employee == null) return NotFound();
 
-            ReadEmployeeDto employeeReturn = new ReadEmployeeDto(employee.Id, employee.Name, employee.Email, employee.Password, employee.Roles);
+            ReadEmployeeDto employeeReturn = new ReadEmployeeDto(employee.Id, employee.Name, employee.Email, employee.Password);
 
-            return Ok(employee);
+            return Ok(employeeReturn);
         }
 
         [HttpPost]
-        public IActionResult CreateEmployee(CreateEmployeeDto userDto)
+        public async Task<ActionResult<ReadEmployeeDto>> CreateEmployee(CreateEmployeeDto employeeDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                byte[] key;
+
+                using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
+                {
+                    key = new byte[32];
+                    rng.GetBytes(key);
+                }
+
+                AesEncryptService aesEncryption = new AesEncryptService(key);
+
+                string encryptedPassword = aesEncryption.Encrypt(employeeDto.Password);
+                string encryptedRePassword = aesEncryption.Encrypt(employeeDto.RePassword);
+
+                Employee employee = new Employee()
+                {
+                    Name = employeeDto.Name,
+                    Email = employeeDto.Email,
+                    DateBirday = employeeDto.DateBirday,
+                    Password = encryptedPassword,
+                    RePassword = encryptedRePassword,
+                    EncryptionKey = Convert.ToBase64String(key),
+                    DateCreated = DateTime.UtcNow.Date
+                };
+
+                await _employeeRepository.CreateAsync(employee);
+
+                ReadEmployeeDto employeeReturn = new ReadEmployeeDto(employee.Id, employee.Name, employee.Email, employee.Password);
+
+                return Ok(employeeReturn);
+            }
+            catch
+            {
+                return BadRequest($"Email já cadastrado!");
+            }
         }
     }
 }

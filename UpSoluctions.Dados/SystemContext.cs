@@ -5,7 +5,7 @@ using UpSoluctions.Data.Map;
 
 namespace UpSoluctions.Data
 {
-    public class SystemContext : IdentityDbContext<PessoaComAcesso, PerfilDeAcesso, int>
+    public class SystemContext : DbContext
     {
         public SystemContext(DbContextOptions<SystemContext> options) : base(options)
         {

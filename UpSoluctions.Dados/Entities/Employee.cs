@@ -10,15 +10,17 @@ namespace UpSoluctions.Data.Entities
         [Required]
         public string Email { get; set; }
         [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime DateBirday { get; set; }
         [Required]
         [DataType(DataType.Password)]
-        public string? Password { get; set; }
+        public string Password { get; set; }
         [Required]
-        [Compare("Password")]
-        public string? RePassword { get; set; }
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [DataType(DataType.Password)]
+        public string RePassword { get; set; }
+        public string EncryptionKey { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.UtcNow.Date;
-        [Required]
-        public string[] Roles { get; set; }
     }
 }
