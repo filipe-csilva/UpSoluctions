@@ -23,8 +23,17 @@ namespace UpSoluctions.API.Controlles
         [HttpGet]
         public async Task<ActionResult<ICollection<ReadEmployeeDto>>> SearchAllAsync()
         {
-            ICollection<Employee> employees = await _employeeRepository.GetAllAsync();
-            return Ok(employees);
+            ICollection<Employee> entities = await _employeeRepository.GetAllAsync();
+            ICollection<ReadEmployeeDto> dtos = [];
+
+            foreach (Employee entity in entities)
+            {
+                ReadEmployeeDto dto = new(entity.Id, entity.Name, entity.Email, entity.Roles);
+
+                dtos.Add(dto);
+            }
+
+            return Ok(dtos);
         }
 
         [HttpGet("{id}")]
@@ -34,7 +43,7 @@ namespace UpSoluctions.API.Controlles
 
             if(employee == null) return NotFound();
 
-            ReadEmployeeDto employeeReturn = new ReadEmployeeDto(employee.Id, employee.Name, employee.Email, employee.Password);
+            ReadEmployeeDto employeeReturn = new ReadEmployeeDto(employee.Id, employee.Name, employee.Email, employee.Roles);
 
             return Ok(employeeReturn);
         }
@@ -70,7 +79,7 @@ namespace UpSoluctions.API.Controlles
 
                 await _employeeRepository.CreateAsync(employee);
 
-                ReadEmployeeDto employeeReturn = new ReadEmployeeDto(employee.Id, employee.Name, employee.Email, employee.Password);
+                ReadEmployeeDto employeeReturn = new ReadEmployeeDto(employee.Id, employee.Name, employee.Email, employee.Roles);
 
                 return Ok(employeeReturn);
             }
@@ -78,6 +87,39 @@ namespace UpSoluctions.API.Controlles
             {
                 return BadRequest($"Email já cadastrado!");
             }
+        }
+
+        [HttpPut("id")]
+        public async Task<ReadEmployeeDto> UpdateByIdAsync(UpdateEmployeeDto employeeDto, int id)
+        {
+            Employee currentEmployee = await _employeeRepository.GetByIdAsync(id);
+
+            // Recuperar a chave de criptografia do banco de dados
+            byte[] key = Convert.FromBase64String(currentEmployee.EncryptionKey);
+            AesEncryptService aesEncryption = new AesEncryptService(key);
+
+            string encryptedPassword = aesEncryption.Encrypt(employeeDto.Password);
+            string encryptedRePassword = aesEncryption.Encrypt(employeeDto.RePassword);
+
+            currentEmployee.Name = employeeDto.Name;
+            currentEmployee.Email = employeeDto.Email;
+            currentEmployee.DateBirday = employeeDto.DateBirday;
+            currentEmployee.Password = encryptedPassword;
+            currentEmployee.RePassword = encryptedRePassword;
+            currentEmployee.EncryptionKey = currentEmployee.EncryptionKey;
+
+            await _employeeRepository.UpdateAsync(currentEmployee, id);
+
+            ReadEmployeeDto employeeReturn = new ReadEmployeeDto(currentEmployee.Id, currentEmployee.Name, currentEmployee.Email, currentEmployee.Roles);
+
+            return employeeReturn;
+        }
+
+        [HttpDelete("id")]
+        public async Task<Employee> DropUser(int id)
+        {
+            Employee employee = await _employeeRepository.DeleteAsync(id);
+            return employee;
         }
     }
 }

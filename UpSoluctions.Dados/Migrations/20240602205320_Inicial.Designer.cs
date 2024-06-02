@@ -12,7 +12,7 @@ using UpSoluctions.Data;
 namespace UpSoluctions.Data.Migrations
 {
     [DbContext(typeof(SystemContext))]
-    [Migration("20240602015536_Inicial")]
+    [Migration("20240602205320_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -234,7 +234,8 @@ namespace UpSoluctions.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("DateBirday")
+                    b.Property<DateTime?>("DateBirday")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateCreated")
@@ -258,6 +259,9 @@ namespace UpSoluctions.Data.Migrations
 
                     b.Property<string>("RePassword")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Roles")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

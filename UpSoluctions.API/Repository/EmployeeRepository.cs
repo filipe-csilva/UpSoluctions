@@ -1,4 +1,5 @@
-﻿using UpSoluctions.API.Repository.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using UpSoluctions.API.Repository.Interfaces;
 using UpSoluctions.Data;
 using UpSoluctions.Data.Entities;
 
@@ -8,6 +9,11 @@ namespace UpSoluctions.API.Repository
     {
         public EmployeeRepository(SystemContext context) : base(context)
         {
+        }
+
+        public async Task<Employee> GetByEmailAsync(string Email)
+        {
+            return await _context.Employees.FirstOrDefaultAsync(e => e.Email == Email);
         }
     }
 }

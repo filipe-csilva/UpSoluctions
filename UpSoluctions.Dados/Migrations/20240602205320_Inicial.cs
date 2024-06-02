@@ -69,7 +69,8 @@ namespace UpSoluctions.Data.Migrations
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RePassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EncryptionKey = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Roles = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
