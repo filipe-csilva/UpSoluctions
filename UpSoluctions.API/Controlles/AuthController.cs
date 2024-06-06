@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
 using UpSoluctions.API.Repository.Interfaces;
 using UpSoluctions.Data.Dtos;
@@ -10,7 +11,6 @@ namespace UpSoluctions.API.Controlles
 {
 
     [ApiController]
-    [Route("api/auth")]
     public class AuthController(IEmployeeRepository employeeRepository, TokenService tokenService) : ControllerBase
     {
         private readonly TokenService _tokenService = tokenService;
@@ -18,6 +18,7 @@ namespace UpSoluctions.API.Controlles
         private readonly IEmployeeRepository _employeeRepository = employeeRepository;
 
         [HttpPost]
+        [Route("api/login")]
         public async Task<ActionResult<TokenService>> Auth(string email, string password)
         {
             Employee employee = await _employeeRepository.GetByEmailAsync(email);
@@ -36,14 +37,37 @@ namespace UpSoluctions.API.Controlles
             {
                 var token = _tokenService.GenerateToken(employee);
 
-                return Ok(token);
+                return Ok(new
+                {
+                    tokenString = token.tokenAcess,
+                    tokenRefresh = token.tokenRefresh
+                });
             }
 
             return BadRequest($"Senha digitada está incorreta!");
         }
 
         [HttpPost]
-        [Route("/create")]
+        [Route("api/refresh")]
+        public async Task<ActionResult<TokenService>> RefleshToken([FromBody] string refreshToken)
+        {
+            try
+            {
+                var tokens = _tokenService.RenewTokens(refreshToken);
+                return Ok(new
+                {
+                    accessToken = tokens.tokenAccess,
+                    refreshToken = tokens.tokenRefresh
+                });
+            }
+            catch (SecurityTokenException)
+            {
+                return Unauthorized("Invalid refresh token");
+            }
+        }
+
+        [HttpPost]
+        [Route("[action]")]
         public async Task<ActionResult<ReadEmployeeDto>> CreateEmployee(CreateEmployeeDto employeeDto)
         {
             try

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpSoluctions.API", "UpSoluc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpSoluctions.Data", "UpSoluctions.Dados\UpSoluctions.Data.csproj", "{8C7275BB-42D5-4CBC-AF49-29ABAAF78E95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpSoluctions.Services", "UpSolutions.Services\UpSoluctions.Services.csproj", "{B8DCF4D2-3E4F-4889-AEBD-22B99EA02ED3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpSoluctions.Services", "UpSolutions.Services\UpSoluctions.Services.csproj", "{B8DCF4D2-3E4F-4889-AEBD-22B99EA02ED3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
