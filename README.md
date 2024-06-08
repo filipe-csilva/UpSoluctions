@@ -3,7 +3,7 @@
 
 ## 📚 Sobre o projeto
 
-O projeto tem como objetivo criar uma aplicação de gerenciamento de Livraria<!-- >, onde o usuário poderá criar uma conta, fazer depósitos, transferências e saques. O projeto está sendo desenvolvido em grupo, com o objetivo de compartilhar conhecimentos e experiências.-->
+O projeto tem como objetivo criar uma aplicação de gerenciamento de Livraria. Este projeto implementa segurança na API utilizando JSON Web Tokens (JWT).<!-- >, onde o usuário poderá criar uma conta, fazer depósitos, transferências e saques. O projeto está sendo desenvolvido em grupo, com o objetivo de compartilhar conhecimentos e experiências.-->
 
 ## 📝 Conteúdo
 
@@ -31,14 +31,14 @@ A configuração do banco de dados é feita através do arquivo appsettings.json
 A configuração adicionais para implementação da segurança da API através de Token JWT é feita através do arquivo appsettings.json, que fica na raiz do projeto.
 
 ```appsettings
-"JWTKey": {
-    "key": "Chave complexa criada manualmente"
-  },
-  "JWTTokenConfiguration": {
-    "Audience": "xxxxxxx",
-    "Issuer": "xxxxx",
-    "ExpireHours": 6
-  }
+  "JWTKey": {
+      "key": "Chave complexa criada manualmente"
+    },
+    "JWTTokenConfiguration": {
+      "Audience": "xxxxxxx",
+      "Issuer": "xxxxx",
+      "ExpireHours": 6
+    }
 ```
 
 <!--## 🚀 Como executar o projeto

@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpSoluctions.Data", "UpSolu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpSoluctions.Services", "UpSolutions.Services\UpSoluctions.Services.csproj", "{B8DCF4D2-3E4F-4889-AEBD-22B99EA02ED3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpSoluctions.Web", "UpSoluctions.Web\UpSoluctions.Web.csproj", "{69456F98-7F68-4599-BEC9-93A79F202744}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B8DCF4D2-3E4F-4889-AEBD-22B99EA02ED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8DCF4D2-3E4F-4889-AEBD-22B99EA02ED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8DCF4D2-3E4F-4889-AEBD-22B99EA02ED3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69456F98-7F68-4599-BEC9-93A79F202744}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69456F98-7F68-4599-BEC9-93A79F202744}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69456F98-7F68-4599-BEC9-93A79F202744}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69456F98-7F68-4599-BEC9-93A79F202744}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

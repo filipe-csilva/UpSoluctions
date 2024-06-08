@@ -10,15 +10,16 @@ namespace UpSoluctions.Services
     public class TokenService(IConfiguration configuration)
     {
         private readonly IConfiguration _configuration = configuration;
+        private readonly Config _config;
 
         public (string tokenAcess, string tokenRefresh) GenerateToken(Employee employee)
         {
             var Secret = _configuration["Secret"];
             var SubSecret = _configuration["SubSecret"];
 
-            var tokenString = CreateToken(employee, Secret, 4);
+            var tokenString = CreateToken(employee, Secret, _config.TimeTokenSecret);
 
-            var tokenRefresh = CreateToken(employee, SubSecret, 24);
+            var tokenRefresh = CreateToken(employee, SubSecret, _config.TimeRefreshTokenSecret);
 
             return  (tokenString, tokenRefresh);
         }

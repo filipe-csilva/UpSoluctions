@@ -68,7 +68,7 @@ namespace UpSoluctions.API.Controlles
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<ActionResult<ReadEmployeeDto>> CreateEmployee(CreateEmployeeDto employeeDto)
+        public async Task<ActionResult<ReadEmployeeDto>> CreateEmployee()
         {
             try
             {
@@ -102,24 +102,10 @@ namespace UpSoluctions.API.Controlles
 
                 return Ok(employeeReturn);
             }
-            catch(Exception ex)
+            catch
             {
-                return BadRequest($"Email já cadastrado!\n\n {ex}");
+                return BadRequest($"Email já cadastrado!");
             }
         }
-
-        //[HttpPost]
-        //[Route("api/v2")]
-        //public async Task<ActionResult<TokenService>> Auth2(string username, string password)
-        //{
-        //    if (username == "filipe" && password == "123456")
-        //    {
-        //        var token = _tokenService.GenerateToken(new Employee());
-        //        return Ok(token);
-        //    }
-
-
-        //    return BadRequest("username or password invalid");
-        //}
     }
 }
