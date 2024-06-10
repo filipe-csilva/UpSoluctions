@@ -1,6 +1,6 @@
-﻿namespace UpSoluctions.Web.Layout
+﻿namespace UpSoluctions.Web.Pages
 {
-    public partial class MainLayout
+    public partial class Login
     {
         public string Email { get; set; }
         public string Senha { get; set; }

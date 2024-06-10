@@ -1,34 +1,11 @@
 ﻿@inherits LayoutComponentBase
+
 <MudThemeProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
-@* <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div> *@
-<MudLayout Class="config_inicial">
-    <MudPaper Class="px-8 pt-2 pb-4 mx-16 my-8 " Justify="Justify.Center">
-        <MudForm>
-            <MudTextField T="string" Label="Email"
-                @bind-Value="Email" Class="my-4"
-                Variant="Variant.Outlined" RequiredError="Email Obrigatório!"
-                OnlyValidateIfDirty="true"/>
-            <MudTextField T="string" Label="Senha"
-                @bind-Value="Senha" Class="my-4"
-                Variant="Variant.Outlined" RequiredError="Senha Obrigatório!"
-                OnlyValidateIfDirty="true" />
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="my-6">Login</MudButton>
-        </MudForm>
-    </MudPaper>
+<MudLayout>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
 </MudLayout>

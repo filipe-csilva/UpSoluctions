@@ -1,0 +1,20 @@
+﻿@page "/remenber"
+
+<MudLayout Class="d-flex absolute justify-center" Style="height:60em">
+    <MudPaper Class="px-8 pt-4 pb-1 mx-16 my-16" Justify="Justify.Center"
+              Style="display:flex; flex-direction:column; justify-content:center; align-items:center; gap:6em; width:40em">
+        <MudImage Height="150" Width="150" Style="margin-top:-22px" Src="icon-192.png" />
+        <MudForm>
+            <MudPaper Elevation="0">
+                <MudTextField T="string" Label="Email"
+                              @bind-Value="Email" Class="my-4" Style="width:25em"
+                              Variant="Variant.Outlined" RequiredError="Email Obrigatório!"
+                              OnlyValidateIfDirty="true" />
+            <MudAlert>Ao válidar seu email você receberá em sua caixa<br/>postal um email com o link para atualizar a senha.</MudAlert>
+            </MudPaper>
+            <MudPaper Elevation="0" Style="display:flex; flex-direction:column; align-items:end">
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="my-6">Validar</MudButton>
+            </MudPaper>
+        </MudForm>
+    </MudPaper>
+</MudLayout>
