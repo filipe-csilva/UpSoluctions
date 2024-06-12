@@ -6,11 +6,10 @@ namespace UpSoluctions.API.Controlles
     [Route("api/[controller]")]
     public class StatusController : ControllerBase
     {
-
-        [HttpGet]
+        [HttpHead]
         public IActionResult Get()
         {
-            return Ok(new { status = "API is online" });
+            return NoContent();
         }
     }
 }
