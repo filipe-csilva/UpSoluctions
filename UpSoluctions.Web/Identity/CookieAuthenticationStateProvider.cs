@@ -86,7 +86,7 @@ namespace UpSoluctions.Web.Identity
             {
                 // login with cookies
                 var result = await _httpClient.PostAsJsonAsync(
-                    "login?useCookies=true", new
+                    "/api/login?useCookies=true", new
                     {
                         email,
                         password

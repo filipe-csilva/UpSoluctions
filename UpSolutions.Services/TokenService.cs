@@ -10,7 +10,7 @@ namespace UpSoluctions.Services
     public class TokenService(IConfiguration configuration)
     {
         private readonly IConfiguration _configuration = configuration;
-        private readonly Config _config;
+        private readonly Config _config = new ();
 
         public (string tokenAcess, string tokenRefresh) GenerateToken(Employee employee)
         {
