@@ -87,7 +87,19 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
+builder.Services.AddCors(
+    options => options.AddPolicy(
+        "wasm",
+        policy => policy.WithOrigins([builder.Configuration["BackendUrl"] ?? "https://localhost:7187",
+            builder.Configuration["FrontendUrl"] ?? "https://localhost:7047"])
+            .AllowAnyMethod()
+            .SetIsOriginAllowed(pol => true)
+            .AllowAnyHeader()
+            .AllowCredentials()));
+
 var app = builder.Build();
+
+app.UseCors("wasm");
 
 //app.MapGroup("auth").MapIdentityApi<PessoaComAcesso>().WithTags("Autorization");
 
@@ -97,6 +109,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 app.UseHttpsRedirection();
 

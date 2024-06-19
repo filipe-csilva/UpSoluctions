@@ -1,8 +1,12 @@
 ﻿@page "/longed"
+@attribute [AllowAnonymous]
 
 <MudPaper>
-    <AuthorizeView>
+    @* <AuthorizeView>
         <Authorized>
+            
+        </Authorized>
+        <NotAuthorized> *@
             <MudLayout>
                 <MudAppBar Elevation="1" Dense="@dense">
                     <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
@@ -22,9 +26,6 @@
                     </MudPaper>
                 </MudMainContent>
             </MudLayout>
-        </Authorized>
-        <NotAuthorized>
-            
-        </NotAuthorized>
-    </AuthorizeView>
+       @*  </NotAuthorized>
+    </AuthorizeView> *@
 </MudPaper>

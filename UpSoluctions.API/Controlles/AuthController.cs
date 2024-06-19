@@ -10,6 +10,8 @@ using UpSoluctions.Services;
 namespace UpSoluctions.API.Controlles
 {
 
+    public record AuthRequest(string Email, string Password);
+
     [ApiController]
     public class AuthController(IEmployeeRepository employeeRepository, TokenService tokenService) : ControllerBase
     {
@@ -19,8 +21,10 @@ namespace UpSoluctions.API.Controlles
 
         [HttpPost]
         [Route("api/login")]
-        public async Task<ActionResult<TokenService>> Auth(string email, string password)
+        public async Task<ActionResult<TokenService>> Auth(AuthRequest request)
         {
+            var (email, password) = request;
+
             Employee employee = await _employeeRepository.GetByEmailAsync(email);
 
             if (employee == null)

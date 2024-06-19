@@ -20,7 +20,11 @@
 
 @using MudBlazor
 @using MudBlazor.Utilities
+@using UpSoluctions.Web.Services
 
+@inject HttpClient Http
+@inject AuthAPI authAPI
+@inject NavigationManager navigationManager
 
 
 @attribute [Authorize]

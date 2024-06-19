@@ -1,5 +1,6 @@
 ﻿@page "/"
 
+
 <MudLayout Class="d-flex absolute justify-center" Style="height:60em">
     <MudPaper Class="px-8 pt-4 pb-1 mx-16 my-16" Justify="Justify.Center"
               Style="display:flex; flex-direction:column; justify-content:center; align-items:center; gap:6em; width:40em">
@@ -11,14 +12,20 @@
                               Variant="Variant.Outlined" RequiredError="Email Obrigatório!"
                               OnlyValidateIfDirty="true" />
                 <MudTextField T="string" Label="Senha"
+                              InputType="InputType.Password"
                               @bind-Value="password" Class="my-4"
                               Variant="Variant.Outlined" RequiredError="Senha Obrigatório!"
                               OnlyValidateIfDirty="true" />
             </MudPaper>
             <p>Não lembra de sua senha <NavLink href="remenber">clique aqui</NavLink>!</p>
             <MudPaper Elevation="0" Style="display:flex; flex-direction:column; align-items:end">
-                <MudButton Variant="Variant.Filled" @OnClick="DoLoginAsync" Color="Color.Primary" Class="my-6">Login</MudButton>
+                <MudButton Variant="Variant.Filled" @onclick="DoLoginAsync" Color="Color.Primary" Class="my-6">Login</MudButton>
             </MudPaper>
         </MudForm>
     </MudPaper>
 </MudLayout>
+
+@if (statusMessage != null)
+{
+    <p>@statusMessage</p>
+}

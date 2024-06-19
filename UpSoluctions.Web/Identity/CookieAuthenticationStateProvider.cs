@@ -96,13 +96,19 @@ namespace UpSoluctions.Web.Identity
                 if (result.IsSuccessStatusCode)
                 {
                     // need to refresh auth state
-                    NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
+                    //NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
 
                     // success!
                     return new FormResult { Succeeded = true };
                 }
             }
-            catch { }
+            catch (Exception ex) {
+                return new FormResult
+                {
+                    Succeeded = false,
+                    ErrorList = [ex.Message]
+                };
+            }
 
             // unknown error
             return new FormResult

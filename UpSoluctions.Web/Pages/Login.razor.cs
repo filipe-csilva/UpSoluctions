@@ -1,44 +1,89 @@
-﻿namespace UpSoluctions.Web.Pages
+﻿
+
+namespace UpSoluctions.Web.Pages
 {
     public partial class Login
     {
-        private bool success, errors;
+        //private bool success, errors;
         private string email = string.Empty;
         private string password = string.Empty;
-        private string[] errorList = [];
+        //private string[] errorList = [];
+
+        //public async Task DoLoginAsync()
+        //{
+        //    success = errors = false;
+        //    errorList = [];
+
+        //    if (string.IsNullOrWhiteSpace(email))
+        //    {
+        //        errors = true;
+        //        errorList = ["Email is required."];
+
+        //        return;
+        //    }
+
+        //    if (string.IsNullOrWhiteSpace(password))
+        //    {
+        //        errors = true;
+        //        errorList = ["Password is required."];
+
+        //        return;
+        //    }
+
+        //    var result = await Acct.LoginAsync(email, password);
+
+        //    if (result.Succeeded)
+        //    {
+        //        success = true;
+        //        email = password = string.Empty;
+        //    }
+        //    else
+        //    {
+        //        errors = true;
+        //        errorList = result.ErrorList;
+        //    }
+        //}
 
         public async Task DoLoginAsync()
         {
-            success = errors = false;
-            errorList = [];
-
-            if (string.IsNullOrWhiteSpace(email))
+            var resposta = await authAPI.LoginAsync(email, password);
+            if (resposta.Sucesso)
             {
-                errors = true;
-                errorList = ["Email is required."];
-
-                return;
+                    navigationManager.NavigateTo("/longed");
             }
+        }
 
-            if (string.IsNullOrWhiteSpace(password))
+        private string statusMessage;
+
+        protected override async Task OnInitializedAsync()
+        {
+            await CheckStatus();
+        }
+
+        private async Task CheckStatus()
+        {
+            try
             {
-                errors = true;
-                errorList = ["Password is required."];
+                var request = new HttpRequestMessage(HttpMethod.Head, "api/status");
 
-                return;
+                var response = await Http.SendAsync(request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    statusMessage = "Request was successful.";
+                }
+                else
+                {
+                    statusMessage = $"Request failed with status code: {response.StatusCode}";
+                }
             }
-
-            var result = await Acct.LoginAsync(email, password);
-
-            if (result.Succeeded)
+            catch (HttpRequestException httpRequestException)
             {
-                success = true;
-                email = password = string.Empty;
+                statusMessage = $"Request error: {httpRequestException.Message}";
             }
-            else
+            catch (Exception ex)
             {
-                errors = true;
-                errorList = result.ErrorList;
+                statusMessage = $"An unexpected error occurred: {ex.Message}";
             }
         }
     }
